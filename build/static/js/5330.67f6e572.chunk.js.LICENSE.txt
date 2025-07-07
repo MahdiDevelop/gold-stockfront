@@ -1,0 +1,16 @@
+/*!
+ * 
+ *               jsPDF AutoTable plugin v3.8.4
+ *
+ *               Copyright (c) 2024 Simon Bengtsson, https://github.com/simonbengtsson/jsPDF-AutoTable
+ *               Licensed under the MIT License.
+ *               http://opensource.org/licenses/mit-license
+ *
+ */
+
+/**
+ * @license lucide-react v0.476.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */

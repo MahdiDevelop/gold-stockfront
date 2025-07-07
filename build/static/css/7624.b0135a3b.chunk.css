@@ -1,0 +1,17 @@
+.resB{
+    max-width: 50% !important;
+    overflow-y: auto;
+    height: 50vh;
+    background-color:#f8f9fa;
+    /* padding: 20px; */
+}
+@media(max-width: 768px) {
+    .resB{
+        /* background-color: red; */
+        max-width: 90%!important;
+        height: 80vh!important;
+    }
+}
+
+
+/*# sourceMappingURL=7624.b0135a3b.chunk.css.map*/

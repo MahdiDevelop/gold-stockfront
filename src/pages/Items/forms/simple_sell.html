@@ -1,0 +1,753 @@
+import React, { useEffect, useRef, useState } from "react";
+import Source from "../../../Source";
+import axios from "axios";
+import Swal from "sweetalert2";
+import Profile from "../../../assets/icon/profile.png";
+import IdNational from "../../../assets/icon/national_id.png";
+import Datepicker_Customer from "../../forms/Datepicker_customer";
+import moment from "moment-jalaali";
+import jalaali from "jalaali-js";
+import Combo_stock from "../../forms/Combo_Customer";
+import Combo_item from "../../forms/Combo_Customer";
+import Additem from "./AddItem";
+import Money from "../../Money";
+// import AddCustomer from '../../assets/icon/AddCustomer.png';
+import Add_customer from "../../AddAccount";
+import Combo_Customer from "../../forms/Combo_Customer";
+import { useMyContext } from "../../constext/UseContext";
+import ComboBox from "../../forms/ComboBox";
+
+// import Combo_stock from "../../forms/Combo_stock";
+
+export default function AddSell({
+  AddSellModal,
+  close,
+  // customer,
+  records,
+  setRecords,
+  moneys,
+  addAccountModal,
+  setAddAccountModal,
+  belance,
+  setbelance,
+  setAddBalanceModal
+}) {
+  const [customer, setcustomer] = useState();
+  // const [customer,setcustomer]=useState([]);
+  const [selectedOptionAccount, setSelectedOptionAccount] = useState();
+  const [selectedDay, setSelectedDay] = useState(moment());
+  const [selectedDay1, setSelectedDay1] = useState(moment());
+  const [selectedOption, setSelectedOption] = useState({ name: "" });
+  const [selectedOption1, setSelectedOption1] = useState({ name: "", qty:0 });
+  const [EndDate, setEndDate] = useState(moment());
+  const [AddItem, setAddItem] = useState({
+    item_id: 0,
+    qty: 0,
+    weight: 0,
+    dateInsert: new Date().toISOString(),
+    rate: 0,
+    user_id: localStorage.getItem("userTokenid"),
+    purchase_price: 0,
+    description: "Description",
+    sell_price: "",
+    expiry_date: new Date().toISOString(),
+    accounts_id: "",
+    money: 0,
+  });
+  // const [belance,setbelance]=useState([]);
+
+  const Onsearch = (e) => {
+    console.log(belance);
+    if (e) {
+      setupdate({
+        ...update,
+        id: e.id,
+      });
+      setAddItem({
+        ...AddItem,
+        money: e.type_id,
+      });
+    }
+  };
+  const Buyer = (e) => {
+    setAddItem({
+      ...AddItem,
+      accounts_id: e.id,
+    });
+  };
+  const algorithm = (e) => {
+    if (e) {
+      setAddItem({
+        ...AddItem,
+        accounts_id: e.id,
+      });
+    }
+  };
+  const algorithm1 = (e) => {
+    if (e) {
+      setAddItem({
+        ...AddItem,
+        weight: e.weight,
+        rate: e.rate,
+        purchase_price: e.purchase_price,
+        expiry_date: e.expiry_date,
+      });
+      setAddItem({
+        ...AddItem,
+        item_id: e.id,
+      });
+      setprimari(e.qty);
+    } else {
+      setprimari(0);
+    }
+  };
+  const handle_date = (jalaliDate) => {
+    if (jalaliDate) {
+      const { year, month, day } = jalaliDate;
+      const gregorianDate = jalaali.toGregorian(year, month, day);
+      // Get current time
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      // Create the ISO date string
+      let isoDateString;
+      const t = new Date();
+      const date = new Date(
+        jalaliDate.year,
+        jalaliDate.month - 1,
+        jalaliDate.day,
+        t.getHours(),
+        t.getMinutes()
+      );
+
+      // const date = new Date(jalaliDate.year, jalaliDate.month - 1, jalaliDate.day);
+      const isoString = date.toISOString(); // This gives you the ISO string in UTC
+      // setIsoDate(isoString);
+      setAddItem({
+        ...AddItem,
+        dateInsert: isoString,
+      });
+      // const isoDateString = `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+  };
+  const handle_date1 = (jalaliDate) => {
+    if (jalaliDate) {
+      const { year, month, day } = jalaliDate;
+      const gregorianDate = jalaali.toGregorian(year, month, day);
+      // Get current time
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      // Create the ISO date string
+      let isoDateString;
+      const t = new Date();
+      const date = new Date(
+        jalaliDate.year,
+        jalaliDate.month - 1,
+        jalaliDate.day,
+        t.getHours(),
+        t.getMinutes()
+      );
+
+      // const date = new Date(jalaliDate.year, jalaliDate.month - 1, jalaliDate.day);
+      const isoString = date.toISOString(); // This gives you the ISO string in UTC
+      // setIsoDate(isoString);
+      setAddItem({
+        ...AddItem,
+        expiry_date: isoString,
+      });
+      // const isoDateString = `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+  };
+  const sumbit = () => {
+    if (primari - AddItem.qty < 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "You have not enough quantity stock!",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      return;
+    }
+    if (AddItem.item_id === 0 && AddItem.accounts_id) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "You must fill the item input!",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+      return;
+    }
+    let additem = AddItem;
+    additem.purchase_price = additem.purchase_price * additem.qty;
+    axios
+      .post(Source.getAddress() + "/api/sell", AddItem, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access")}`,
+        },
+        params: {
+          account: "no",
+        },
+      })
+      .then((res) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Stock has been created!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        let belanceup = {
+          belance: update.belance,
+        };
+        if(account){
+          axios
+          .put(
+            Source.getAddress() + "/api/belance/" + update.id + "/",
+            belanceup,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("access")}`, // Add the access token here
+                // Do NOT set 'Content-Type' when using FormData; let the browser set it automatically
+              },
+            }
+          )
+          .then((res) => {
+            // setupdate({id:null,belance:selectedOptionAccount.belance-AddItem.qty*AddItem.sell_price});  
+          })
+          .catch((err) => {
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: "Your belance not add !",
+              showConfirmButton: false,
+              timer: 800,
+            });
+          });  
+        }
+        setupdate({ id: 0, belance: 0 });
+            setSelectedOptionAccount([]);
+            setSelectedDay(moment());
+            setSelectedDay1(moment());
+            setSelectedOption({ name: "" });
+            setSelectedOption1({ name: "" });
+            setEndDate(moment());
+            setprimari(0);
+            setAddItem({
+              item_id: 0,
+              qty: "",
+              weight: 0,
+              dateInsert: new Date().toISOString(),
+              rate: 0,
+              user_id: localStorage.getItem("userTokenid"),
+              purchase_price: 0,
+              description: "Description",
+              sell_price:0,
+              expiry_date: new Date().toISOString(),
+              accounts_id: "",
+            });
+            setSearchQuery("");
+            setSearchQuery1("");
+            setupdate({ id: 0, belance: 0 });
+            setSelectedOptionmoney({ name: "" });
+            setaccount(false);
+        let additem = {};
+        additem = AddItem;
+        additem["id"] = res.data.report;
+        additem["account"] = selectedOption;
+        additem["stock"] = selectedOption1;
+        additem["user"] = {
+          id: AddItem.user_id,
+          name: localStorage.getItem("userToken"),
+        };
+        setRecords([additem, ...records]);
+        close();
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Something went wrong!",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      });
+  };
+  const handleItem = (e) => {
+    setAddItem({
+      ...AddItem,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const [options, setOptions] = useState([]);
+  const [options1, setOptions1] = useState([]);
+  const handleSearch = async (query) => {
+    if (query.length < 3) {
+      // برای جلوگیری از ارسال درخواست بیش از حد، درخواست فقط اگر ورودی بیشتر از 2 حرف باشد ارسال شود
+      setOptions([]);
+      return;
+    }
+    try {
+      const response = await axios.get(`${Source.getAddress()}/api/customers`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access")}`,
+        },
+        params: { query: query }, // ارسال پارامتر جستجو به سرور
+      });
+      //   console.log(query);
+      const data = response.data;
+      // تبدیل داده‌ها به فرمت مناسب برای react-select
+      let formattedOptions = data;
+      setOptions(formattedOptions);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+    }
+  };
+
+  const handleSearch1 = async (query) => {
+    if (query.length < 3) {
+      // برای جلوگیری از ارسال درخواست بیش از حد، درخواست فقط اگر ورودی بیشتر از 2 حرف باشد ارسال شود
+      setOptions1([]);
+      return;
+    }
+    try {
+      const response = await axios.get(`${Source.getAddress()}/api/item`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access")}`,
+        },
+        params: {
+           query: query,
+            stock:true
+          }, // ارسال پارامتر جستجو به سرور
+      });
+      const data = response.data;
+      // تبدیل داده‌ها به فرمت مناسب برای react-select
+      const formattedOptions = data;
+      //    data.map((customer) => ({
+      //     id: customer.id,
+      //     name: customer.name,
+      //     customer
+      //   }));
+      setOptions1(formattedOptions);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+    }
+  };
+  const handleInputChange = (newValue) => {
+    setSearchQuery(newValue); // بروزرسانی مقدار ورودی جستجو
+    handleSearch(newValue); // ارسال درخواست جستجو به سرور
+  };
+  const handleInputChange1 = (newValue) => {
+    setSearchQuery1(newValue); // بروزرسانی مقدار ورودی جستجو
+    handleSearch1(newValue); // ارسال درخواست جستجو به سرور
+  };
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery1, setSearchQuery1] = useState("");
+  const [update, setupdate] = useState({ id: 0, belance: 0 });
+  const [selectedOptionmoney, setSelectedOptionmoney] = useState({ name: "" });
+  const [account, setaccount] = useState(false);
+  const algorithmmoney = (e) => {
+    if (e) {
+      setAddItem({
+        ...AddItem,
+        money: e.id,
+      });
+    }
+  };
+  useEffect(() => {
+    if (selectedOptionAccount) {
+      setupdate({
+        ...update,
+        belance:
+          selectedOptionAccount.belance - AddItem.qty * AddItem.sell_price,
+        id: selectedOptionAccount.id,
+      });
+    }
+  }, [selectedOptionAccount, AddItem.qty, AddItem.sell_price]);
+  const [primari, setprimari] = useState(0);
+
+  return (
+    <div
+      className={`container rounded-5 popup transition ${
+        account && "sellpurchase"
+      } ${AddSellModal ? "show" : ""}`}
+      style={{
+        width: "100%",
+        maxWidth: "40% !important",
+        overflowX: "auto",
+        overflowY: "auto",
+        height: "80vh",
+        backgroundColor: "#f8f9fa",
+        padding: "20px",
+      }}
+    >
+      <div className="d-flex justify-content-end">
+        <button
+          type="button"
+          className="btn-close p-2 mt-0 hover_btn"
+          onClick={close}
+          aria-label="Close"
+        ></button>
+      </div>
+      <div className="p-1 rounded-5">
+        <div className="row">
+          <h1
+            className="col-6 text-center rounded p-4 pt-2 pb-2 text-light"
+            style={{
+              backgroundColor: "var(--bs-info)",
+              width: "100%",
+              marginTop: "0rem",
+            }}
+          >
+            Add Sell
+          </h1>
+          <div
+            className={`col-12 ${account ? "col-md-4" : "col-md-6"}`}
+            style={{ marginTop: "1rem" }}
+          >
+            <div className="mb-4 row">
+              <div className="col">
+                <label for="validationServer01" className="fw-bold">
+                  Buyer Name
+                </label>
+                <Combo_stock
+                  // Add={Add_customer}
+                  type={true}
+                  name="Add Customer"
+                  setAddAccountModal={setAddAccountModal}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  handleInputChange={handleInputChange}
+                  handleSearch={handleSearch}
+                  setSelectedOption={setSelectedOption}
+                  selectedOption={selectedOption}
+                  options={options}
+                  Onsearch={algorithm}
+                />
+              </div>
+            </div>
+            <div style={{ marginTop: "1.9rem" }}>
+              <label for="validationServer01" className="fw-bold">
+                Stock Name
+              </label>
+              <Combo_stock
+                searchQuery={searchQuery1}
+                setSearchQuery={setSearchQuery1}
+                handleInputChange={handleInputChange1}
+                handleSearch={handleSearch1}
+                setSelectedOption={setSelectedOption1}
+                selectedOption={selectedOption1}
+                options={options1}
+                Onsearch={algorithm1}
+              />
+            </div>
+            <Datepicker_Customer
+              // onKeyDown={handleKeyDown}
+              default_value={EndDate}
+              // settings={settings}
+              handle_date={handle_date}
+              lebal={"Date Purchase"}
+              setSelectedDay={setSelectedDay}
+              selectedDay={selectedDay}
+            ></Datepicker_Customer>
+
+            {/* <label for="floatingTextarea2" className="index-2">Discription</label> */}
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Existense Quantity
+            </label>
+            <input
+              readOnly={true}
+              // onKeyDown={handleKeyDown}
+              onChange={handleItem}
+              value={primari - AddItem.qty}
+              type="number"
+              name="existense"
+              //   maxLength={10}
+              //   readOnly={true}
+              placeholder="Existense Quantity"
+              className="form-control fs-6 mb-1"
+              style={{ width: "100%" }}
+            />
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1.9rem" }}
+            >
+              Qty
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              onChange={handleItem}
+              value={AddItem.qty}
+              type="number"
+              name="qty"
+              min={0}
+              // maxLength={1}
+              //   readOnly={true}
+              placeholder="Rate"
+              className="form-control fs-6 mb-2"
+              style={{ width: "100%" }}
+            />
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Money Type
+            </label>
+            <Combo_Customer
+              isEditable={account}
+              setSelectedOption={setSelectedOptionmoney}
+              selectedOption={selectedOptionmoney}
+              options={moneys}
+              Onsearch={algorithmmoney}
+            />
+            <button
+              // ref={buttonRef}
+              type="button"
+              className="text-center btn btn-info text-light pe-0 ps-0"
+              style={{ width: "70px" }}
+              onClick={() => {
+                setaccount((prev) => !prev);
+              }}
+            >
+              Account
+            </button>
+          </div>
+          <div
+            className={`col-12 ${account ? "col-md-4" : "col-md-6"}`}
+            //   style={{marginTop:"2rem"}}
+          >
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Weight
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              //   onChange={handleItem}
+              value={AddItem.weight}
+              type="number"
+              name="weight"
+              readOnly={true}
+              //   maxLength={10}
+              placeholder="Weight"
+              className="form-control fs-6 mb-3"
+              style={{ width: "100%" }}
+            />
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Rate
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              onChange={handleItem}
+              readOnly={true}
+              value={AddItem.rate}
+              type="number"
+              name="rate"
+              //   maxLength={10}
+              placeholder="Rate"
+              className="form-control fs-6 mb-3"
+              style={{ width: "100%" }}
+            />
+            <div class="form-floating">
+              <textarea
+                name="description"
+                class="form-control h-50"
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+                value={AddItem.description}
+                onClick={() => {
+                  setAddItem({
+                    ...AddItem,
+                    description: "",
+                  });
+                }}
+                onChange={handleItem}
+              ></textarea>
+              <label for="floatingTextarea2">Description</label>
+            </div>
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "2rem" }}
+            >
+              Sell Price
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              onChange={handleItem}
+              value={AddItem.sell_price}
+              type="number"
+              name="sell_price"
+              //   maxLength={10}
+              placeholder="Purchase Price"
+              className="form-control fs-6 mb-2"
+              style={{ width: "100%" }}
+            />
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1.6rem" }}
+            >
+              Total Amount
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              readOnly={true}
+              // onChange={handleItem}
+              value={AddItem.qty * AddItem.sell_price}
+              type="number"
+              name="Total Amount"
+              //   maxLength={10}
+              placeholder="Total Amount"
+              className="form-control fs-6 mb-4"
+              style={{ width: "100%" }}
+            />
+            {/* <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Sell Price
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              onChange={handleItem}
+              //   value={AddItem.serial_number}
+              type="text"
+              name="sell_price"
+              //   maxLength={10}
+              placeholder="Rate"
+              className="form-control fs-6 mb-3"
+              style={{ width: "100%" }}
+            /> */}
+            {/* <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Money Type
+            </label>
+            <Combo_Customer
+              setSelectedOption={setSelectedOptionmoney}
+              selectedOption={selectedOptionmoney}
+              options={moneys}
+              Onsearch={algorithmmoney}
+            />
+            <Datepicker_Customer
+              // onKeyDown={handleKeyDown}
+              default_value={EndDate}
+              // settings={settings}
+              handle_date={handle_date1}
+              lebal={"Expiration Date"}
+              setSelectedDay={setSelectedDay1}
+              selectedDay={selectedDay1}
+            ></Datepicker_Customer> */}
+            <div className="m-0 p-0">
+              <Datepicker_Customer
+                // onKeyDown={handleKeyDown}
+                default_value={EndDate}
+                // settings={settings}
+                handle_date={handle_date1}
+                lebal={"Exp Date"}
+                setSelectedDay={setSelectedDay1}
+                selectedDay={selectedDay1}
+              ></Datepicker_Customer>
+            </div>
+          </div>
+          <div
+            className={`col-12 col-md-4 ${!account && "d-none"}`}
+            style={{ marginTop: "1rem" }}
+          >
+            <div className="mb-4 row">
+              <div className="col">
+                <strong>Customer</strong>
+                <ComboBox
+                  setAddBalanceModal={setAddBalanceModal}
+                  type={"Add Customer"}
+                  name={"Add Seller"}
+                  setSelectedOption={setSelectedOptionAccount}
+                  selectedOption={selectedOptionAccount}
+                  options={belance}
+                  Onsearch={Onsearch}
+                  // onKeyDown={handleKeyDown}
+                />
+              </div>
+            </div>
+
+            {/* <label for="floatingTextarea2" className="index-2">Discription</label> */}
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1.9rem" }}
+            >
+              Balance
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              value={selectedOptionAccount ? selectedOptionAccount.belance : 0}
+              type="number"
+              name="Balance"
+              min={0}
+              readOnly={true}
+              // maxLength={1}
+              //   readOnly={true}
+              placeholder="Balance"
+              className="form-control fs-6 mb-2"
+              style={{ width: "100%" }}
+            />
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1.9rem" }}
+            >
+              Remain Belance
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              // onChange={(e)=>console.log()}
+              value={update.belance}
+              type="number"
+              name="Balance"
+              min={0}
+              readOnly={true}
+              // maxLength={1}
+              //   readOnly={true}
+              placeholder="Remain Balance"
+              className="form-control fs-6 mb-2"
+              style={{ width: "100%" }}
+            />
+          </div>
+          <div
+            className="col-12 d-flex justify-content-center"
+            style={{ marginTop: "1rem" }}
+          >
+            <button
+              type="button"
+              className="text-center btn btn-danger text-light me-2"
+              style={{ width: "150px" }}
+              onClick={close}
+            >
+              Cancel
+            </button>
+            <button
+              // ref={buttonRef}
+              type="button"
+              className="text-center btn btn-success text-light ms-2"
+              style={{ width: "150px" }}
+              onClick={sumbit}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

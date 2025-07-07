@@ -1,0 +1,129 @@
+
+          <div
+            className={`col-12 ${account ? "col-md-3" : "col-md-4"}`}
+            style={{ marginTop: "1rem" }}
+          >
+            <div className="mb-4">
+                <strong>Customer</strong>
+                <ComboBox
+                  setAddBalanceModal={setAddBalanceModal}
+                  type={"Add Customer"}
+                  name={"Add Seller"}
+                  setSelectedOption={setSelectedOptionAccount}
+                  selectedOption={selectedOptionAccount}
+                  options={belance}
+                  Onsearch={Onsearch}
+                  // onKeyDown={handleKeyDown}
+                />
+
+            </div>
+            <div style={{ marginTop: "1.9rem" }}>
+              
+            </div>
+            {/* <label for="floatingTextarea2" className="index-2">Discription</label> */}
+            <div class="form-floating">
+              <textarea
+                name="description"
+                class="form-control h-50"
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+                value={AddItem.description}
+                onClick={() => {
+                  setAddItem({
+                    ...AddItem,
+                    description: "",
+                  });
+                }}
+                onChange={handleItem}
+              ></textarea>
+            </div>
+            <button
+              // ref={buttonRef}
+              type="button"
+              className="text-center btn btn-info text-light pe-0 ps-0"
+              style={{ width: "70px" }}
+              onClick={() => {
+                setaccount((prev) => !prev);
+              }}
+            >
+              Account
+            </button>
+          </div>
+          <div
+            className={`col-12 ${account ? "col-md-3" : "col-md-4"}`}
+            //   style={{marginTop:"2rem"}}
+          >
+            {( selectedOption1!==null && selectedOption1.type.measuring.includes('Weight')) &&
+          (
+            <div>
+          </div>)
+            }
+            
+            {/* <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1rem" }}
+            >
+              Sell Price
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              onChange={handleItem}
+              //   value={AddItem.serial_number}
+              type="text"
+              name="sell_price"
+              //   maxLength={10}
+              placeholder="Rate"
+              className="form-control fs-6 mb-3"
+              style={{ width: "100%" }}
+            /> */}
+           
+            <Datepicker_Customer
+              // onKeyDown={handleKeyDown}
+              default_value={EndDate}
+              // settings={settings}
+              handle_date={handle_date1}
+              lebal={"Exp Date"}
+              setSelectedDay={setSelectedDay1}
+              selectedDay={selectedDay1}
+            ></Datepicker_Customer>
+            <Datepicker_Customer
+              // onKeyDown={handleKeyDown}
+              default_value={EndDate}
+              // settings={settings}
+              handle_date={handle_date}
+              lebal={"Date Purchase"}
+              setSelectedDay={setSelectedDay}
+              selectedDay={selectedDay}
+            ></Datepicker_Customer>
+          </div>
+          <div
+            className={`col-12 col-md-3 ${!account && "d-none"}`}
+            style={{ marginTop: "1rem" }}
+          >
+            <div className="mb-4 row">
+              <div className="col">
+                
+              </div>
+            </div>
+
+            {/* <label for="floatingTextarea2" className="index-2">Discription</label> */}
+            <label
+              htmlFor="phone_number"
+              style={{ fontWeight: "bold", marginTop: "1.9rem" }}
+            >
+              Balance
+            </label>
+            <input
+              // onKeyDown={handleKeyDown}
+              value={selectedOptionAccount ? selectedOptionAccount.belance : 0}
+              type="number"
+              name="Balance"
+              min={0}
+              readOnly={true}
+              // maxLength={1}
+              //   readOnly={true}
+              placeholder="Balance"
+              className="form-control fs-6 mb-2"
+              style={{ width: "100%" }}
+            />
+          </div>

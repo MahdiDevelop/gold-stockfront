@@ -1,0 +1,9 @@
+# پوشه‌ها و فایل‌هایی که نباید push بشن
+
+node_modules/
+.env
+vendor/
+storage/
+.idea/
+*.log
+.DS_Store

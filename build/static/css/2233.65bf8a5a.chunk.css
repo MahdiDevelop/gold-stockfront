@@ -1,0 +1,103 @@
+.res{
+    max-width: 40%!important;
+    height: 65vh !important;;
+}
+.trnsformation{
+    max-width: 60%!important;
+    height: 83vh !important;
+}
+.Ctrnsformation{
+    max-width: 40%!important;
+    height: 83vh !important;
+}
+.customer{
+    max-width: 40%!important;
+    height: 80vh !important;
+}
+.custom-select__menu {
+    z-index: 1050; /* مقدار بالا برای پیش‌نمایی در اولویت */
+  }
+  .custom-select__control {
+    z-index: 1049; /* اطمینان از هم‌سطح بودن کنترل با منو */
+  }
+  @media (max-width: 768px) {
+    .custom-class {
+      width: 100%; /* عرض کامل در موبایل */
+      height: auto; /* ارتفاع خودکار */
+    }
+  }
+.transition{
+    transition: all 10s ease;
+    /* max-width: 70%!important; */
+    max-width: 80% !important;
+    width: 100vw !important;
+    /* height: 100% !important; */
+    /* top: 0px !important; */
+    height: 89vh !important;
+}
+/* .transition.sellpurchase{
+    max-width: 80%!important;
+    height: 80vh !important;
+} */
+.item{
+    max-width: 500px!important;
+    height: 80vh!important;
+}
+.setting{
+    max-width: 40%!important;
+    height: 80vh !important;
+}
+@media (max-width: 768px) {
+    .trnsformation{
+        max-width: 80%!important;
+        height: 83vh !important;
+    }
+    .Ctrnsformation{
+        max-width: 85%!important;
+        height: 83vh !important;
+    }
+    .transition{
+        max-width: 95%!important;
+        height: 85vh !important;
+    }
+    .customer{
+        max-width: 80%!important;
+        height: 85vh !important;;
+    }
+    .sellpurchase{
+        max-width: 80%!important;
+        height: 85vh !important;
+    }
+    .setting{
+        max-width: 80%!important;
+        height: 85vh !important;;
+    }
+    .res{
+        /* max-height: 80%; */
+        max-width: 90%!important;
+        height: 78vh !important;;
+    }
+    .margin{
+        margin-top: 2rem !important;
+        /* margin-bottom: 1rem !important; */
+    }
+}
+
+
+.resB{
+    max-width: 50% !important;
+    overflow-y: auto;
+    height: 50vh;
+    background-color:#f8f9fa;
+    /* padding: 20px; */
+}
+@media(max-width: 768px) {
+    .resB{
+        /* background-color: red; */
+        max-width: 90%!important;
+        height: 80vh!important;
+    }
+}
+
+
+/*# sourceMappingURL=2233.65bf8a5a.chunk.css.map*/

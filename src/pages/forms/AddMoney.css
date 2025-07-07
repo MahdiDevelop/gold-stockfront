@@ -1,0 +1,53 @@
+.popup {
+    width: 80%; /* Default width for larger screens */
+  }
+  
+  .popup.show {
+    display: block;
+  }
+  
+  @media (min-width: 768px) {
+    .popup {
+      width: 50%; /* Width for medium screens and up */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .popup {
+      width: 30%; /* Width for larger screens */
+    }
+  }
+  
+  .form-control {
+    width: 100%; /* Full width input field */
+  }
+  
+  button {
+    width: 45%; /* Make buttons responsive */
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h4 {
+    width: 100%;
+    text-align: center;
+  }
+  
+  @media (max-width: 767px) {
+    .popup {
+      width: 90%; /* Width for smaller screens */
+    }
+  
+    .form-control {
+      width: 100%; /* Full width input field */
+    }
+  
+    .btn {
+      width: 48%; /* Make buttons responsive */
+    }
+  }
+  

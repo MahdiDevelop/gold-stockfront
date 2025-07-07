@@ -1,0 +1,43 @@
+.form-switch {
+    display: inline-block;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .form-switch i {
+    position: relative;
+    display: inline-block;
+    margin-right: .5rem;
+    width: 46px;
+    height: 26px;
+    background-color: #e6e6e6;
+    border-radius: 15px;
+    vertical-align: middle;
+    transition: background 0.25s;
+  }
+  
+  .form-switch i::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s;
+  }
+  
+  .form-switch input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .form-switch input:checked + i {
+    background-color: #4BD763;
+  }
+  
+  .form-switch input:checked + i::before {
+    transform: translateX(20px);
+  }
+  

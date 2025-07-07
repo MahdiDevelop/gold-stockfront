@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" width="256" height="256">
+  <defs>
+    <linearGradient id="d0VrwS2LiZYa5fFiyPlpGb" x1="7.5" x2="7.5" y1="7" y2="41" gradientTransform="matrix(1.03 0 0 1 16.273 0)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a2ff94" />
+      <stop offset="1" stop-color="#27c411" />
+    </linearGradient>
+    <linearGradient id="d0VrwS2LiZYa5fFiyPlpGa" x1="-9" x2="24" y1="24" y2="24" gradientTransform="matrix(1.03 0 0 1 16.273 0)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#81eb73" stop-opacity="0" />
+      <stop offset=".41" stop-color="#80ea72" stop-opacity=".012" />
+      <stop offset=".558" stop-color="#7be76d" stop-opacity=".055" />
+      <stop offset=".663" stop-color="#73e165" stop-opacity=".13" />
+      <stop offset=".749" stop-color="#68d959" stop-opacity=".237" />
+      <stop offset=".821" stop-color="#59ce49" stop-opacity=".376" />
+      <stop offset=".886" stop-color="#46c136" stop-opacity=".548" />
+      <stop offset=".943" stop-color="#31b120" stop-opacity=".747" />
+      <stop offset=".995" stop-color="#19a007" stop-opacity=".977" />
+      <stop offset="1" stop-color="#169e04" />
+    </linearGradient>
+    <linearGradient id="d0VrwS2LiZYa5fFiyPlpGc" x1="-1395" x2="-1362" y1="-180" y2="-180" gradientTransform="matrix(1.03 0 0 1 1444.273 204)" xlink:href="#d0VrwS2LiZYa5fFiyPlpGa" />
+    <linearGradient id="d0VrwS2LiZYa5fFiyPlpGd" x1="-1197" x2="-1164" y1="-1608" y2="-1608" gradientTransform="matrix(1.03 0 0 1 1240.273 1632)" xlink:href="#d0VrwS2LiZYa5fFiyPlpGa" />
+    <linearGradient id="d0VrwS2LiZYa5fFiyPlpGe" x1="189" x2="222" y1="-1404" y2="-1404" gradientTransform="matrix(1.03 0 0 1 -187.727 1428)" xlink:href="#d0VrwS2LiZYa5fFiyPlpGa" />
+    <linearGradient id="d0VrwS2LiZYa5fFiyPlpGf" x1="24.027" x2="24.027" y1="15.291" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset=".375" stop-color="#fff" />
+      <stop offset=".606" stop-color="#fcfcfd" />
+      <stop offset=".784" stop-color="#f2f2f6" />
+      <stop offset=".943" stop-color="#e2e2eb" />
+      <stop offset="1" stop-color="#dadae6" />
+    </linearGradient>
+  </defs>
+  <g data-name="check mark button">
+    <rect width="34" height="34" x="7" y="7" fill="url(#d0VrwS2LiZYa5fFiyPlpGb)" rx="3" />
+    <g opacity=".9">
+      <rect width="34" height="34" x="7" y="7" fill="url(#d0VrwS2LiZYa5fFiyPlpGa)" rx="3" />
+      <rect width="34" height="34" x="7" y="7" fill="url(#d0VrwS2LiZYa5fFiyPlpGc)" rx="3" transform="rotate(-90 24 24)" />
+      <rect width="34" height="34" x="7" y="7" fill="url(#d0VrwS2LiZYa5fFiyPlpGd)" rx="3" transform="rotate(180 24 24)" />
+      <rect width="34" height="34" x="7" y="7" fill="url(#d0VrwS2LiZYa5fFiyPlpGe)" rx="3" transform="rotate(90 24 24)" />
+    </g>
+    <path fill="url(#d0VrwS2LiZYa5fFiyPlpGf)" d="M22,34a2,2,0,0,1-1.414-.586l-9.195-9.242a1,1,0,0,1,0-1.414l1.414-1.414a1,1,0,0,1,1.414,0l7.687,7.733L33.7,15.63a1,1,0,0,1,1.412-.091l1.5,1.321a1,1,0,0,1,.091,1.411L23.5,33.32A2,2,0,0,1,22.064,34Z" />
+  </g>
+</svg>

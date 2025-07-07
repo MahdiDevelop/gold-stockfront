@@ -1,0 +1,47 @@
+/* Declare the custom font */
+@font-face {
+    font-family: 'CustomFont1';
+    src: url('../../assets/font/BahijHelveticaNeue-Roman.ttf') format('woff2');
+         /* url('../../assets/font/IRANSansXBold.ttf') format('woff'), */
+         /* url('../../assets//font/IRANSansXThin.ttf') format('truetype'); */
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'CustomFont';
+    src: url('../../assets/font/English/RamusMedium-ALX07.ttf') format('woff2'),
+         url('../../assets/font/English/RamusBold-ZVPq8.ttf') format('woff'),
+         url('../../assets//font/English/RamusSemiBoldItalic-GOW5D.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  /* Use the custom font */
+  /* body {
+}
+ */
+
+
+.English{
+    font-family:Arial, Helvetica, sans-serif
+    /* font-weight: bold; */
+}
+
+ .afgFont{
+     font-family: 'CustomFont1', 'BahijHelveticaNeue-Roman'!important;
+     font-size: 0.95rem;
+     /* font-size: 0.95rem; */
+    /* font-weight: bold!important; */
+    font-weight: unset;
+ }
+
+
+.resm{
+    /* background-color: red; */
+    width: 50%;
+}
+@media(max-width: 768px) {
+    .resm{
+        /* background-color: red; */
+        width: 80%!important;
+    }
+}

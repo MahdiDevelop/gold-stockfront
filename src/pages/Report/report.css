@@ -1,0 +1,193 @@
+.custom-row-bg {
+    background-color: #e6f2ff !important; /* Light blue */
+  }
+  
+  .custom-summary-bg {
+    background-color: #f0f0f5 !important; /* Light gray */
+    font-weight: bold;
+  }
+  /* Base table styling */
+.table-custom {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+  }
+  
+  .table-custom th,
+  .table-custom td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  /* Light table styling */
+  .table-custom-light {
+    background-color: #f8f9fa;
+  }
+  
+  .table-custom-light th,
+  .table-custom-light td {
+    border-color: #ffffff;
+  }
+  
+  /* Striped rows */
+  .table-custom-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Hoverable rows */
+  .table-custom-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  
+  /* Bordered table */
+  .table-custom-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-custom-bordered th,
+  .table-custom-bordered td {
+    border: 1px solid #ffffff;
+  }
+  
+  /* Condensed table */
+  .table-custom-sm th,
+  .table-custom-sm td {
+    padding: 0.3rem;
+  }
+  .striped{
+    background-color: rgb(186, 233, 255) !important;
+  }
+
+
+
+/* برای صفحه نمایش های بزرگتر */
+@media (min-width: 768px) {
+  .responsive-container {
+    padding: 8rem;
+    padding-top: 0rem;
+  }
+  .form-item {
+    width: 25%;
+  }
+  .date-picker-container {
+    width: 10rem;
+    margin-right: 4rem;
+  }
+  .date-picker-end {
+    width: 8rem;
+    margin-right: 7rem;
+  }
+
+}
+
+/* برای صفحه نمایش های کوچکتر */
+@media (max-width: 767px) {
+  .responsive-container {
+    padding: 2rem; /* کاهش فضای حاشیه برای صفحه نمایش های کوچکتر */
+  }
+  .form-item {
+    width: 100%; /* استفاده از عرض کامل برای فرم های ورودی */
+    margin-bottom: 1rem;
+  }
+  .date-picker-container {
+    width: 100%;
+  }
+  .date-picker-end {
+    width: 70%;
+    /* margin-right: 0; حذف فضای اضافی در سمت راست */
+  }
+  .btn {
+    width: 100%; /* دکمه ها عرض کامل را در اندازه های کوچکتر اشغال می کنند */
+  }
+  #table-to-print{
+    max-width: 420px !important;
+    width: 500px !important;
+    margin: auto !important;
+    padding: 0 !important;
+    /* padding-right: 5rem; */
+    /* محدود کردن ارتفاع و اضافه کردن اسکرول‌بار عمودی */
+    max-height: 600px; /* ارتفاع مورد نظر خود را وارد کنید */
+    overflow-y: auto; /* اضافه کردن اسکرول‌بار عمودی */
+  
+    /* اضافه کردن اسکرول‌بار افقی در صورت نیاز */
+    overflow-x: auto;
+  }
+  .headerWidth{
+    width: 600px !important;
+  }
+}
+
+/* برای تنظیمات پرینت در حالت دسکتاپ */
+/* @media print {
+  .desktop-print {
+    font-size: 1.2rem !important;
+  }
+  .desktop-print-header {
+    font-size: 1.3rem !important;
+  }
+  .desktop-print-container {
+    font-size: 8rem !important;
+  }
+}
+ */
+/* استایل‌های پرینت برای حالت دسکتاپ */
+/* .desktop-print-container {
+  width: 100% !important;
+  padding: 8rem !important;
+  padding-top: 0rem !important;
+  display: block !important;
+}
+
+.desktop-print-container .form-item,
+.desktop-print-container .date-picker-container,
+.desktop-print-container .date-picker-end,
+.desktop-print-container .btn {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+.desktop-print-container .form-item {
+  width: 25% !important;
+}
+
+.desktop-print-container .date-picker-container {
+  width: 10rem !important;
+  margin-right: 4rem !important;
+}
+
+.desktop-print-container .date-picker-end {
+  width: 8rem !important;
+  margin-right: 7rem !important;
+} */
+
+@media print {
+  /* اعمال استایل‌های مخصوص پرینت */
+  .responsive-container {
+    padding: 8rem;
+    padding-top: 0rem;
+  }
+  .form-item {
+    width: 25%;
+  }
+  .date-picker-container {
+    width: 10rem;
+    margin-right: 4rem;
+  }
+  .date-picker-end {
+    width: 8rem;
+    margin-right: 7rem;
+  }
+
+}
+/* فایل CSS */
+.desktop-mode {
+  width: 100% !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.desktop-mode .table-responsive {
+  overflow-x: visible !important;
+}
